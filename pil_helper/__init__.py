@@ -6,7 +6,7 @@ from typing import Union
 
 from .errors import *
 
-def change_png_color(img: Union[Image, bytes], from_rgb: str, to_rgb: str, delta_rank: int = 10):
+def change_png_color(img, from_rgb: str, to_rgb: str, delta_rank: int = 10):
     """Change a color from a PNG image
 
     Parameters
@@ -53,7 +53,7 @@ def change_png_color(img: Union[Image, bytes], from_rgb: str, to_rgb: str, delta
 
     return img
 
-def make_transparent(img: Union[Image, bytes], color: Union[tuple, str], delta_rank: int = 10):
+def make_transparent(img, color: Union[tuple, str], delta_rank: int = 10):
     """Make a color from a PNG image transparent
 
     Parameters

@@ -8,12 +8,12 @@ from .util import executor
 from ..errors import *
 
 @executor
-def change_png_color(img: Union[Image, bytes], from_rgb: Union[tuple, str], to_rgb: Union[tuple, str], delta_rank: int = 10):
+def change_png_color(img, from_rgb: Union[tuple, str], to_rgb: Union[tuple, str], delta_rank: int = 10):
     """Change a color from a PNG image
 
     Parameters
     ==========
-        img: Union[PIL.Image, bytes]
+        img:
             The image to change the color from. This can be
             a premade image from PIL.Image, or raw bytes.
         from_rgb: Union[tuple, str]
@@ -58,12 +58,12 @@ def change_png_color(img: Union[Image, bytes], from_rgb: Union[tuple, str], to_r
     return img
 
 @executor
-def make_transparent(img: Union[Image, bytes], color: Union[tuple, str], delta_rank: int = 10):
+def make_transparent(img, color: Union[tuple, str], delta_rank: int = 10):
     """Make a color from a PNG image transparent
 
     Parameters
     ==========
-        img: Union[PIL.Image, bytes]
+        img
             The image to change the color from. This can be
             a premade image from PIL.Image, or raw bytes.
         color: Union[tuple, str]
