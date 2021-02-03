@@ -1,6 +1,7 @@
 import struct
 
 from PIL import Image
+from PIL.PngImagePlugin import PngImageFile
 from io import BytesIO
 from typing import Union
 
@@ -8,14 +9,14 @@ from .util import executor
 from ..errors import *
 
 @executor
-def change_png_color(img, from_rgb: Union[tuple, str], to_rgb: Union[tuple, str], delta_rank: int = 10):
+def change_png_color(img: Union[PngImageFile, bytes], from_rgb: Union[tuple, str], to_rgb: Union[tuple, str], delta_rank: int = 10):
     """Change a color from a PNG image
 
     Parameters
     ==========
-        img:
+        img: Union[PngImageFile, bytes]
             The image to change the color from. This can be
-            a premade image from PIL.Image, or raw bytes.
+            a premade PNG image from PIL.Image, or raw bytes.
         from_rgb: Union[tuple, str]
             The HEX color code or RGB tuple of the color
             that needs to be replaced with the new color.
@@ -38,11 +39,8 @@ def change_png_color(img, from_rgb: Union[tuple, str], to_rgb: Union[tuple, str]
         to_rgb = to_rgb.replace('#', '').replace('0x', '')
         to_rgb = struct.unpack('BBB', bytes.fromhex(to_rgb))
 
-    if not isinstance(img, Image):
-        try:
-            img = Image.open(img)
-        except:
-            raise NoImage
+    if isinstance(img, bytes):
+        img = Image.open(BytesIO(img))
 
     img = img.convert("RGBA")
     pixdata = img.load()
@@ -58,14 +56,14 @@ def change_png_color(img, from_rgb: Union[tuple, str], to_rgb: Union[tuple, str]
     return img
 
 @executor
-def make_transparent(img, color: Union[tuple, str], delta_rank: int = 10):
+def make_transparent(img: Union[PngImageFile, bytes], color: Union[tuple, str], delta_rank: int = 10):
     """Make a color from a PNG image transparent
 
     Parameters
     ==========
-        img
+        img: Union[PngImageFile, bytes]
             The image to change the color from. This can be
-            a premade image from PIL.Image, or raw bytes.
+            a premade PNG image from PIL.Image, or raw bytes.
         color: Union[tuple, str]
             The HEX color code or RGB tuple of the color
             that needs to be made transparent.
@@ -81,11 +79,9 @@ def make_transparent(img, color: Union[tuple, str], delta_rank: int = 10):
     if isinstance(color, str):
         color = color.replace('#', '').replace('0x', '')
         color = struct.unpack('BBB', bytes.fromhex(color))
-    if not isinstance(img, Image):
-        try:
-            img = Image.open(img)
-        except:
-            raise NoImage
+
+    if isinstance(img, bytes):
+        img = Image.open(BytesIO(img))
 
     pixdata = img.load()
 
