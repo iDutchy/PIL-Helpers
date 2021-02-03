@@ -47,8 +47,8 @@ def change_png_color(img: Union[PngImageFile, bytes], from_rgb: Union[tuple, str
     for x in range(0, img.size[0]):
         for y in range(0, img.size[1]):
             rdelta = pixdata[x, y][0] - from_rgb[0]
-            gdelta = pixdata[x, y][0] - from_rgb[0]
-            bdelta = pixdata[x, y][0] - from_rgb[0]
+            gdelta = pixdata[x, y][1] - from_rgb[1]
+            bdelta = pixdata[x, y][2] - from_rgb[2]
             if abs(rdelta) <= delta_rank and abs(gdelta) <= delta_rank and abs(bdelta) <= delta_rank:
                 pixdata[x, y] = (to_rgb[0] + rdelta, to_rgb[1] + gdelta, to_rgb[2] + bdelta, pixdata[x, y][3])
 
@@ -87,8 +87,8 @@ def make_transparent(img: Union[PngImageFile, bytes], color: Union[tuple, str], 
     for x in range(0, img.size[0]):
         for y in range(0, img.size[1]):
             rdelta = pixdata[x, y][0] - color[0]
-            gdelta = pixdata[x, y][0] - color[0]
-            bdelta = pixdata[x, y][0] - color[0]
+            gdelta = pixdata[x, y][1] - color[1]
+            bdelta = pixdata[x, y][2] - color[2]
             if abs(rdelta) <= delta_rank and abs(gdelta) <= delta_rank and abs(bdelta) <= delta_rank:
                 pixdata[x, y] = (255, 255, 255, 0)
 
