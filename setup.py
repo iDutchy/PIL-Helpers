@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
   name = 'pil_helper',
-  packages = ['pil_helper'],
+  packages = ['pil_helper', 'pil_helper.async_exec'],
   version = '0.0.1',
   license='MIT',
   description = 'A couple helper methods for working with PIL',
