@@ -6,7 +6,6 @@ from io import BytesIO
 from typing import Union
 
 from .util import executor
-from ..errors import *
 
 @executor
 def change_png_color(img: Union[PngImageFile, bytes], from_rgb: Union[tuple, str], to_rgb: Union[tuple, str], delta_rank: int = 10):
