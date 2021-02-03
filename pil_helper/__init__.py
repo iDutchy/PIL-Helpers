@@ -5,6 +5,7 @@ from io import BytesIO
 from typing import Union
 
 from .errors import *
+from . import _async
 
 def change_png_color(img, from_rgb: str, to_rgb: str, delta_rank: int = 10):
     """Change a color from a PNG image
