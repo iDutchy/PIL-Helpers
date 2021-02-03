@@ -82,14 +82,18 @@ def make_transparent(img: Union[PngImageFile, bytes], color: Union[tuple, str], 
     if isinstance(img, bytes):
         img = Image.open(BytesIO(img))
 
-    pixdata = img.load()
+    datas = img.getdata()
 
-    for x in range(0, img.size[0]):
-        for y in range(0, img.size[1]):
-            rdelta = pixdata[x, y][0] - color[0]
-            gdelta = pixdata[x, y][1] - color[1]
-            bdelta = pixdata[x, y][2] - color[2]
-            if abs(rdelta) <= delta_rank and abs(gdelta) <= delta_rank and abs(bdelta) <= delta_rank:
-                pixdata[x, y] = (255, 255, 255, 0)
+    new_data = []
+    for item in datas:
+        r = item[0] - color[0]
+        g = item[1] - color[1]
+        b = item[2] - color[2]
+        if abs(r) <= delta_rank and abs(g) <= delta_rank and abs(b) <= delta_rank:
+            new_data.append((255, 255, 255, 0))
+        else:
+            new_data.append(item)
+
+    img.putdata(new_data)
 
     return img
