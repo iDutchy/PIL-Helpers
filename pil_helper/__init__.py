@@ -1,8 +1,8 @@
-import struct
+# import struct
 
-from PIL import Image
-from io import BytesIO
-from typing import Union
+# from PIL import Image
+# from io import BytesIO
+# from typing import Union
 
 from .errors import *
 from . import _async
